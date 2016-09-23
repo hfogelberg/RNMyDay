@@ -50,8 +50,8 @@ class App extends Component {
               ref={(ref) => this._navigator = ref}
               configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
               initialRoute={{
-                  id: 'NewActivity',
-                  title: 'NewActivity',
+                  id: 'Settings',
+                  title: 'Settings',
                   index: 0
               }}
               renderScene={(route, navigator) => this._renderScene(route, navigator)}

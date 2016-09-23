@@ -3,9 +3,9 @@ import Realm from 'realm';
 import Moment from 'moment';
 import _ from 'underscore';
 
-class Type {}
-Type.schema = {
-  name: 'Type',
+class ActivityType {}
+ActivityType.schema = {
+  name: 'ActivityType',
   properties: {
     id: 'string',
     name: 'string'
@@ -19,7 +19,8 @@ Activity.schema = {
     id: 'string',
     start: 'date',
     end: 'date',
-    comment: 'string'
+    comment: 'string',
+    activityType: 'ActivityType'
   }
 }
 
@@ -31,7 +32,7 @@ export default class RealmHelper {
     let id = (new Date).getTime().toString();
     try {
       realm.write(() => {
-        realm.create('Type', {
+        realm.create('ActivityType', {
           id: id,
           name: name
         })
@@ -43,7 +44,7 @@ export default class RealmHelper {
 
   static getTypes() {
     try {
-      let types = realm.objects('Type');
+      let types = realm.objects('ActivityType');
       return types;
     } catch(err) {
       console.log('Error getting types', err);

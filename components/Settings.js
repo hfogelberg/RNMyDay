@@ -6,7 +6,9 @@ import {
   Container,
   Content,
   List,
-  ListItem
+  ListItem,
+  Input,
+  Button
 } from 'native-base';
 import styles from '../styles/styles';
 import RealmHelper from '../helpers/realmHelper';
@@ -16,6 +18,7 @@ class Settings extends Component {
       super(props);
       this.state = {
         types: [],
+        newType: '',
         editMode: false
        };
   }
@@ -23,9 +26,40 @@ class Settings extends Component {
   componentDidMount() {
     console.log('Mounted');
 
-    let locations = RealmHelper.getTypes();
+    let types = RealmHelper.getTypes();
     this.setState({types});
-    console.log('Types found: ' + types.length);
+    console.log(types.length);
+  }
+
+  onPress() {
+    console.log('onPress: ' + this.state.newType);
+    RealmHelper.saveItem(this.state.newType);
+  }
+
+  render() {
+    return (
+      <Container style={{marginTop: 70}}>
+        <Content>
+          <List>
+            <ListItem>
+              <Input
+                autoCapitalize="sentences"
+                autoCorrect={false}
+                autoFocus={true}
+                placeholder='Activity type'
+                onChangeText={(newType) => this.setState({newType})} />
+            </ListItem>
+
+            <ListItem>
+              <Button
+                block rounded primary
+                onPress={this.onPress}
+                >Save</Button>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
+    )
   }
 }
 
